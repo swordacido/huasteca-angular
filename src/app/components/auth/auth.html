@@ -1,0 +1,41 @@
+<div class="auth-page">
+  <div class="auth-container">
+    @if (auth.isAuthenticated()) {
+      <div class="auth-card success">
+        <h2>✅ Sesión Iniciada</h2>
+        <p>Has iniciado sesión como:</p>
+        <div class="user-info">
+          <strong>{{ auth.currentUser()?.name || 'Usuario' }}</strong>
+          <br>
+          <small>{{ auth.currentUser()?.email || '' }}</small>
+          <br>
+          <span class="role-badge" [class]="'role-' + (auth.currentUser()?.role?.toLowerCase() || 'cliente')">
+            {{ auth.currentUser()?.role || 'CLIENTE' }}
+          </span>
+        </div>
+        <div class="actions">
+          <button class="btn-primary" (click)="navigateToInicio()">Ir a Inicio</button>
+          <button class="btn-secondary" (click)="logout()">Cerrar Sesión</button>
+        </div>
+      </div>
+    } @else {
+      <div class="auth-card">
+        <h2>{{ isLogin() ? 'Iniciar Sesión' : 'Registrarse' }}</h2>
+        
+        <div class="google-btn" (click)="loginWithGoogle()">
+          <img src="https://developers.google.com/identity/images/g-logo.png" alt="G">
+          <span>{{ loading() ? 'Conectando...' : 'Continuar con Google' }}</span>
+        </div>
+        
+        @if (error()) {
+          <div class="error-message">{{ error() }}</div>
+        }
+      </div>
+
+      <p class="auth-switch">
+        {{ isLogin() ? '¿Eres nuevo?' : '¿Ya tienes cuenta?' }}
+        <a (click)="toggleAuth()">{{ isLogin() ? 'Crea tu cuenta' : 'Inicia sesión' }}</a>
+      </p>
+    }
+  </div>
+</div>

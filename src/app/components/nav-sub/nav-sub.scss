@@ -1,0 +1,22 @@
+.nav-sub {
+  background-color: var(--cafe-oscuro);
+  color: white;
+  padding: 8px 20px;
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+
+  span {
+    cursor: pointer;
+    font-weight: normal;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.menu-trigger {
+  font-weight: bold !important;
+  cursor: pointer;
+}

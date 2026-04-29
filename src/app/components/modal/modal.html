@@ -1,0 +1,43 @@
+@if (isOpen) {
+  <div class="modal" (click)="close()">
+    <div class="modal-contenido" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="close()">✕</button>
+      
+      <div class="modal-header">
+        <h2>{{ title }}</h2>
+      </div>
+      
+      @if (price !== null) {
+        <div class="modal-price-section">
+          <div class="modal-price">${{ price }}</div>
+          <span class="price-label">Precio</span>
+        </div>
+      }
+      
+      <div class="modal-description">
+        <p>{{ message }}</p>
+      </div>
+      
+      <div class="modal-info">
+        <div class="info-item">
+          <span class="info-label">Disponibilidad:</span>
+          <span class="info-value">En stock</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Envío:</span>
+          <span class="info-value">Envío gratis disponible</span>
+        </div>
+      </div>
+      
+      <div class="modal-actions">
+        <button class="btn-primary" (click)="addToCart()">Agregar al carrito</button>
+        <button class="btn-secondary" (click)="close()">Seguir navegando</button>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn-icon" title="Compartir">📤 Compartir</button>
+        <button class="btn-icon" title="Guardar">❤️ Guardar</button>
+      </div>
+    </div>
+  </div>
+}

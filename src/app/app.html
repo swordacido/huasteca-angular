@@ -1,0 +1,10 @@
+<app-sidebar [isOpen]="sidebarOpen()"></app-sidebar>
+
+<app-header></app-header>
+<app-nav-sub></app-nav-sub>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<app-modal [isOpen]="modalOpen()" [title]="modalTitle()" [message]="modalMessage()" [price]="modalPrice()"></app-modal>

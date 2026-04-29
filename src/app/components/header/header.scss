@@ -1,0 +1,103 @@
+header {
+  background: linear-gradient(135deg, #D4A373 0%, #D4A373 100%);
+  padding: 12px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 0 20px;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: rgb(63, 43, 19);
+  cursor: pointer;
+  white-space: nowrap;
+  
+  &:hover {
+    color: #FF9900;
+  }
+}
+
+.search-container {
+  flex: 1;
+  display: flex;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 600px;
+}
+
+.search-bar {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.search-btn {
+  background: #FF9900;
+  border: none;
+  padding: 0 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 18px;
+    filter: brightness(0) invert(1);
+  }
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: white;
+
+  > span {
+    cursor: pointer;
+    font-size: 0.95rem;
+
+    &:hover {
+      color: #FF9900;
+    }
+  }
+}
+
+.carrito-wrapper {
+  position: relative;
+  cursor: pointer;
+  padding: 5px;
+
+  img {
+    width: 28px;
+    filter: brightness(0) invert(1);
+  }
+
+  .cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #FF9900;
+    color: rgb(59, 44, 17);
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

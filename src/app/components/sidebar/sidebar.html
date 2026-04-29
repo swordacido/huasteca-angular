@@ -1,0 +1,36 @@
+<div class="overlay" [class.active]="isOpen" (click)="close()"></div>
+<aside class="sidebar" [class.open]="isOpen">
+  <div class="sidebar-header">
+    Hola, {{ auth.currentUser()?.name || 'Identifícate' }}
+    @if (isAdmin) {
+      <span class="role-badge admin">Admin</span>
+    } @else if (isSeller) {
+      <span class="role-badge seller">Vendedor</span>
+    } @else {
+      <span class="role-badge client">Cliente</span>
+    }
+  </div>
+
+  <a (click)="navigate('inicio')">Inicio</a>
+  <a (click)="navigate('perfil')">Mi Perfil</a>
+
+  @if (isAdmin) {
+    <div class="section-title">Panel Administrador</div>
+    <a (click)="navigate('admin')">📦 Admin Productos</a>
+    <a (click)="navigate('admin')">📊 Registro de Ventas</a>
+  }
+
+  @if (isSeller) {
+    <div class="section-title">Panel Vendedor</div>
+    <a (click)="navigate('seller')">📦 Mis Productos</a>
+    <a (click)="navigate('seller')">💰 Mis Ventas</a>
+    <a (click)="navigate('venta')">➕ Agregar Producto</a>
+  }
+
+  @if (isClient) {
+    <a (click)="navigate('venta')">Vender Productos</a>
+  }
+
+  <a (click)="navigate('ayuda')">Centro de Ayuda</a>
+  <a (click)="navigate('login')">Cerrar Sesión</a>
+</aside>

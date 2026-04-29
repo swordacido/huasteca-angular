@@ -1,0 +1,112 @@
+<div class="seller-container">
+  <header class="seller-header">
+    <h1>Panel de Vendedor</h1>
+    <div class="seller-info">
+      <span>{{ auth.currentUser()?.name }}</span>
+      <span class="role-badge seller">Vendedor</span>
+    </div>
+  </header>
+
+  <div class="seller-content">
+    <div class="mis-productos-section">
+      <div class="section-header">
+        <h2>Mis Productos</h2>
+        <button class="btn-primary" (click)="openCreateModal()">+ Agregar Producto</button>
+      </div>
+
+      @if (loading()) {
+        <div class="loading">Cargando tus productos...</div>
+      }
+
+      <div class="productos-grid">
+        @for (product of misProductos(); track product.id) {
+          <div class="producto-card">
+            <div class="producto-img" [style.background-image]="'url(' + product.imagen_url + ')'"></div>
+            <div class="producto-info">
+              <h3>{{ product.nombre }}</h3>
+              <p class="desc">{{ product.descripcion }}</p>
+              <div class="precio">${{ product.precio }}</div>
+              <div class="stock">Stock: {{ product.stock }}</div>
+              <div class="actions">
+                <button class="btn-edit" (click)="openEditModal(product)">Editar</button>
+                <button class="btn-delete" (click)="deleteProduct(product.id)">Eliminar</button>
+              </div>
+            </div>
+          </div>
+        } @empty {
+          @if (!loading()) {
+            <div class="no-products">No has agregado productos aún</div>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="ventas-section">
+      <h2>Mis Ventas</h2>
+
+      <div class="ventas-stats">
+        <div class="stat-card">
+          <h3>Mis Ventas</h3>
+          <p class="stat-value">${{ ventas().reduce((acc, v) => acc + v.total, 0) }}</p>
+        </div>
+        <div class="stat-card">
+          <h3>Productos Vendidos</h3>
+          <p class="stat-value">{{ ventas().reduce((acc, v) => acc + v.cantidad, 0) }}</p>
+        </div>
+      </div>
+
+      <div class="ventas-list">
+        @for (venta of ventas(); track venta.id) {
+          <div class="venta-item">
+            <span class="fecha">{{ venta.fecha }}</span>
+            <span class="producto">{{ venta.producto }}</span>
+            <span class="cantidad">{{ venta.cantidad }} unidades</span>
+            <span class="total">${{ venta.total }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (showModal()) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>{{ isEditing() ? 'Editar' : 'Agregar' }} Producto</h2>
+
+      <form (ngSubmit)="saveProduct()" class="product-form">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" [(ngModel)]="productForm.nombre" name="nombre" required>
+        </div>
+
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea [(ngModel)]="productForm.descripcion" name="descripcion" rows="3"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Precio</label>
+            <input type="number" [(ngModel)]="productForm.precio" name="precio" required>
+          </div>
+
+          <div class="form-group">
+            <label>Stock</label>
+            <input type="number" [(ngModel)]="productForm.stock" name="stock" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>URL de Imagen</label>
+          <input type="text" [(ngModel)]="productForm.imagen_url" name="imagen_url">
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

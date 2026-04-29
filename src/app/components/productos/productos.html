@@ -1,0 +1,93 @@
+<div class="contenedor-productos">
+  @if (loading()) {
+    <div class="loading">Cargando productos...</div>
+  }
+
+  @for (product of productos(); track product.id) {
+    <div class="tarjeta-producto" (click)="openProductModal(product)">
+      <div class="foto-producto" [style.background-image]="'url(' + product.imagen_url + ')'"></div>
+      <div class="info-producto">
+        <div class="precio">${{ product.precio }}</div>
+        <div class="nombre-prod">{{ product.nombre }}</div>
+        <p class="descripcion-corta">{{ product.descripcion }}</p>
+        <div class="stock-info" [class.sin-stock]="product.stock === 0">
+          @if (product.stock > 0) {
+            <span>{{ product.stock }} disponibles</span>
+          } @else {
+            <span>Sin stock</span>
+          }
+        </div>
+        <button class="btn-carrito" (click)="openProductModal(product); $event.stopPropagation()">Ver más y comprar</button>
+      </div>
+    </div>
+  } @empty {
+    @if (!loading()) {
+      <div class="no-products">No hay productos disponibles</div>
+    }
+  }
+</div>
+
+@if (selectedProduct()) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-producto" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeModal()">✕</button>
+
+      <div class="modal-grid">
+        <div class="modal-imagen">
+          <div class="imagen-producto" [style.background-image]="'url(' + selectedProduct()!.imagen_url + ')'"></div>
+        </div>
+
+        <div class="modal-detalles">
+          <h2 class="modal-titulo">{{ selectedProduct()!.nombre }}</h2>
+          <div class="modal-precio">${{ selectedProduct()!.precio }}</div>
+
+          <div class="modal-descripcion">
+            <h3>Descripción</h3>
+            <p>{{ selectedProduct()!.descripcion }}</p>
+          </div>
+
+          <div class="modal-info-adicional">
+            <div class="info-row">
+              <span class="label">Stock disponible:</span>
+              <span class="value" [class.sin-stock]="selectedProduct()!.stock === 0">
+                @if (selectedProduct()!.stock > 0) {
+                  {{ selectedProduct()!.stock }} unidades
+                } @else {
+                  Agotado
+                }
+              </span>
+            </div>
+            <div class="info-row">
+              <span class="label">Envío:</span>
+              <span class="value envio-gratis">Gratis a todo el país</span>
+            </div>
+          </div>
+
+          @if (selectedProduct()!.stock > 0) {
+            <div class="cantidad-selector">
+              <span class="label">Cantidad:</span>
+              <div class="selector">
+                <button class="qty-btn" (click)="decreaseQuantity()" [disabled]="quantity() <= 1">-</button>
+                <span class="qty-display">{{ quantity() }}</span>
+                <button class="qty-btn" (click)="increaseQuantity()" [disabled]="quantity() >= selectedProduct()!.stock">+</button>
+              </div>
+            </div>
+
+            <div class="modal-acciones">
+              <button class="btn-comprar" (click)="addToCartWithQuantity()">
+                Agregar {{ quantity() }} al carrito - ${{ selectedProduct()!.precio * quantity() }}
+              </button>
+            </div>
+          } @else {
+            <div class="sin-stock-msg">Producto agotado</div>
+          }
+
+          <div class="modal-footer-actions">
+            <button class="btn-icon">❤️ Favorito</button>
+            <button class="btn-icon">📤 Compartir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,171 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h1>Panel de Administración</h1>
+  </div>
+
+  <nav class="admin-nav">
+    <button [class.active]="activeTab() === 'products'" (click)="activeTab.set('products')">📦 Productos</button>
+    <button [class.active]="activeTab() === 'ventas'" (click)="activeTab.set('ventas')">💰 Ventas</button>
+    <button [class.active]="activeTab() === 'usuarios'" (click)="activeTab.set('usuarios')">👥 Usuarios</button>
+  </nav>
+
+  @if (activeTab() === 'products') {
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Productos</div>
+        <div class="stat-value">{{ productos().length }}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">En Stock</div>
+        <div class="stat-value">{{ getTotalStock() }}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Valor Inventario</div>
+        <div class="stat-value">${{ getInventoryValue() }}</div>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2>Gestión de Productos</h2>
+      <button class="btn-add" (click)="openAddProduct()">+ Nuevo Producto</button>
+    </div>
+
+    <div class="products-grid">
+      @for (product of productos(); track product.id) {
+        <div class="product-card">
+          <div class="product-image" [style.background-image]="'url(' + product.imagen_url + ')'"></div>
+          <div class="product-info">
+            <h3>{{ product.nombre }}</h3>
+            <div class="price">${{ product.precio }}</div>
+            <div class="stock">Stock: {{ product.stock }}</div>
+          </div>
+          <div class="product-actions">
+            <button class="btn-edit" (click)="openEditProduct(product)">Editar</button>
+            <button class="btn-delete" (click)="deleteProduct(product)">Eliminar</button>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-state">
+          <h3>No hay productos</h3>
+          <p>Agrega tu primer producto para comenzar a vender</p>
+          <button class="btn-add" (click)="openAddProduct()">+ Agregar Producto</button>
+        </div>
+      }
+    </div>
+
+    @if (showModal()) {
+      <div class="modal-overlay" (click)="closeModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+          <button class="modal-close" (click)="closeModal()">✕</button>
+          <h2>{{ isEditing() ? 'Editar' : 'Nuevo' }} Producto</h2>
+          
+          <form (ngSubmit)="saveProduct()" #formRef="ngForm">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" [(ngModel)]="productForm.nombre" name="nombre" required>
+            </div>
+            
+            <div class="form-group">
+              <label>Descripción</label>
+              <textarea [(ngModel)]="productForm.descripcion" name="descripcion" rows="3"></textarea>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label>Precio ($)</label>
+                <input type="number" [(ngModel)]="productForm.precio" name="precio" min="0" step="0.01" required>
+              </div>
+              
+              <div class="form-group">
+                <label>Stock</label>
+                <input type="number" [(ngModel)]="productForm.stock" name="stock" min="0" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>URL de Imagen</label>
+              <input type="text" [(ngModel)]="productForm.imagen_url" name="imagen_url" placeholder="/uploads/producto.jpg">
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="btn-cancel" (click)="closeModal()">Cancelar</button>
+              <button type="submit" class="btn-save" [disabled]="!formRef.form.valid">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    }
+  }
+
+  @if (activeTab() === 'ventas') {
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Ventas</div>
+        <div class="stat-value">{{ ventas().length }}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Ingresos Totales</div>
+        <div class="stat-value">${{ getTotalVentas() }}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Este Mes</div>
+        <div class="stat-value">${{ getMonthlyVentas() }}</div>
+      </div>
+    </div>
+
+    <div class="ventas-table">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unit.</th>
+            <th>Total</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (venta of ventas(); track venta.id) {
+            <tr>
+              <td>{{ venta.id.slice(-8) }}</td>
+              <td>{{ venta.producto_nombre }}</td>
+              <td>{{ venta.cantidad }}</td>
+              <td>${{ venta.precio_unitario }}</td>
+              <td class="total">${{ venta.total }}</td>
+              <td>{{ venta.fecha | date:'short' }}</td>
+              <td><span class="badge completed">Completada</span></td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" style="text-align: center; padding: 40px;">No hay ventas registradas</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  @if (activeTab() === 'usuarios') {
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Usuarios</div>
+        <div class="stat-value">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label"> Administradores</div>
+        <div class="stat-value">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label"> Vendedores</div>
+        <div class="stat-value">-</div>
+      </div>
+    </div>
+
+    <div class="empty-state">
+      <h3>Gestión de Usuarios</h3>
+      <p>Aquí podrás gestionar usuarios y roles</p>
+    </div>
+  }
+</div>

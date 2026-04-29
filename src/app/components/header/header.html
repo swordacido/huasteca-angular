@@ -1,0 +1,22 @@
+<header>
+  <div class="header-content">
+    <div class="logo" (click)="navigate('inicio')">Huasteca🛒</div>
+
+    <div class="search-container">
+      <input type="text" class="search-bar" placeholder="Buscar artesanías, café y más..." [(ngModel)]="searchQuery">
+      <button class="search-btn" (click)="onSearch()">
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" alt="Buscar">
+      </button>
+    </div>
+
+    <div class="user-menu">
+      <span (click)="navigate('perfil')">Perfil</span>
+      <div class="carrito-wrapper" (click)="navigate('carrito')">
+        <img src="https://cdn-icons-png.flaticon.com/512/107/107831.png" alt="Carrito">
+        @if (cart.totalItems() > 0) {
+          <span class="cart-badge">{{ cart.totalItems() }}</span>
+        }
+      </div>
+    </div>
+  </div>
+</header>
