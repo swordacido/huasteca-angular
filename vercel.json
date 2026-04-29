@@ -1,5 +1,5 @@
 {
-  "rewrites": [
+dfg  "rewrites": [
     {
       "source": "/api/:path*",
       "destination": "https://huasteca-backend.onrender.com/api/:path*"
