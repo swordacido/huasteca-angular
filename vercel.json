@@ -2,7 +2,7 @@
 dfg  "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://huasteca-backend.onrender.com/api/:path*"
+      "destination": "https://backend-5czn.onrender.com/api/:path*"
     },
     {
       "source": "/(.*)",
