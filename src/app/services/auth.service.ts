@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { tap, catchError, map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface User {
   id: string;
@@ -15,7 +16,7 @@ export interface User {
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = '/api/v1';
+  private readonly API_URL = environment.apiUrl;
   private readonly GOOGLE_CLIENT_ID = '115265766797-ui4mvgcbub7cj61oo5s1js6ijhj6vlna.apps.googleusercontent.com';
   private readonly REDIRECT_URI = `${window.location.origin}/auth/callback`;
 
