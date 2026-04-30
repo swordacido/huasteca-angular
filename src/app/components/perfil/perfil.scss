@@ -370,3 +370,79 @@
     background: #cc0000;
   }
 }
+// Responsive Design
+// Extra Small (phones): < 576px
+@media (max-width: 575.98px) {
+  .perfil-container {
+    padding: 10px;
+  }
+
+  .perfil-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 15px;
+
+    .header-info {
+      h1 {
+        font-size: 1.3rem;
+      }
+
+      .edit-name-input {
+        text-align: center;
+      }
+    }
+
+    .header-actions {
+      flex-direction: column;
+      
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .perfil-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .avatar-section {
+    .avatar, .avatar-img {
+      width: 80px;
+      height: 80px;
+      font-size: 2rem;
+    }
+  }
+}
+
+// Small (large phones/tablets): ≥ 576px
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .perfil-container {
+    padding: 15px;
+  }
+
+  .perfil-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Medium (tablets): ≥ 768px
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .perfil-header {
+    flex-direction: row;
+  }
+
+  .perfil-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Large (desktops): ≥ 992px
+@media (min-width: 992px) {
+  .perfil-container {
+    padding: 20px;
+  }
+
+  .perfil-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}

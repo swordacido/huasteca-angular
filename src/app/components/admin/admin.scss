@@ -463,3 +463,134 @@
       }
     }
 }
+
+// Responsive Design
+// Extra Small (phones): < 576px
+@media (max-width: 575.98px) {
+  .admin-container {
+    padding: 10px;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+
+    h1 {
+      font-size: 1.4rem;
+    }
+  }
+
+  .admin-nav {
+    flex-wrap: wrap;
+    gap: 5px;
+
+    button {
+      padding: 8px 15px;
+      font-size: 0.85rem;
+      flex: 1 1 auto;
+    }
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 15px;
+
+    .stat-value {
+      font-size: 1.5rem;
+    }
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card {
+    .product-image {
+      height: 150px;
+    }
+
+    .product-actions {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .ventas-table,
+  .usuarios-table {
+    overflow-x: auto;
+
+    table {
+      min-width: 500px;
+      font-size: 0.85rem;
+
+      th, td {
+        padding: 10px;
+      }
+    }
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+    max-height: 85vh;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    .btn-add {
+      width: 100%;
+    }
+  }
+}
+
+// Small (large phones/tablets): ≥ 576px
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .admin-container {
+    padding: 15px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Medium (tablets): ≥ 768px
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .admin-header {
+    flex-direction: row;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Large (desktops): ≥ 992px
+@media (min-width: 992px) {
+  .admin-container {
+    padding: 20px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
