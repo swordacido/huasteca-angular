@@ -51,3 +51,25 @@ body {
 .hidden {
   display: none !important;
 }
+
+// Breakpoints Responsive
+// Extra Small (móviles): < 576px
+@media (max-width: 575.98px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+// Small (móviles grandes/tablets): ≥ 576px
+@media (min-width: 576px) {
+  body {
+    font-size: 15px;
+  }
+}
+
+// Medium (tablets): ≥ 768px
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
