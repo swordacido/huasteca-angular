@@ -39,44 +39,52 @@
   <div class="faq-section">
     <h2>Preguntas Frecuentes</h2>
     
-    <div class="faq-item">
-      <div class="faq-question">
+    <div class="faq-item" [class.open]="expandedFaq() === 0">
+      <div class="faq-question" (click)="toggleFaq(0)">
         <span>¿Cómo funciona el proceso de compra?</span>
-        <span class="icon">+</span>
+        <span class="icon">{{ expandedFaq() === 0 ? '-' : '+' }}</span>
       </div>
-      <div class="faq-answer">
-        <p>Selecciona los productos que deseas, agrégalos al carrito y procede al pago. Puedes pagar con tarjeta o MercadoPago.</p>
-      </div>
+      @if (expandedFaq() === 0) {
+        <div class="faq-answer">
+          <p>Selecciona los productos que deseas, agrégalos al carrito y procede al pago. Puedes pagar con tarjeta o MercadoPago.</p>
+        </div>
+      }
     </div>
 
-    <div class="faq-item">
-      <div class="faq-question">
+    <div class="faq-item" [class.open]="expandedFaq() === 1">
+      <div class="faq-question" (click)="toggleFaq(1)">
         <span>¿Los productos son auténticos?</span>
-        <span class="icon">+</span>
+        <span class="icon">{{ expandedFaq() === 1 ? '-' : '+' }}</span>
       </div>
-      <div class="faq-answer">
-        <p>Sí, todos nuestros productos son hechos a mano por artesanos de la Huasteca Potosina. Cada pieza es única.</p>
-      </div>
+      @if (expandedFaq() === 1) {
+        <div class="faq-answer">
+          <p>Sí, todos nuestros productos son hechos a mano por artesanos de la Huasteca Potosina. Cada pieza es única.</p>
+        </div>
+      }
     </div>
 
-    <div class="faq-item">
-      <div class="faq-question">
+    <div class="faq-item" [class.open]="expandedFaq() === 2">
+      <div class="faq-question" (click)="toggleFaq(2)">
         <span>¿Cuánto tiempo tarda el envío?</span>
-        <span class="icon">+</span>
+        <span class="icon">{{ expandedFaq() === 2 ? '-' : '+' }}</span>
       </div>
-      <div class="faq-answer">
-        <p>El tiempo de entrega depende de la ubicación. Generalmente 3-7 días hábiles para México.</p>
-      </div>
+      @if (expandedFaq() === 2) {
+        <div class="faq-answer">
+          <p>El tiempo de entrega depende de la ubicación. Generalmente 3-7 días hábiles para México.</p>
+        </div>
+      }
     </div>
 
-    <div class="faq-item">
-      <div class="faq-question">
+    <div class="faq-item" [class.open]="expandedFaq() === 3">
+      <div class="faq-question" (click)="toggleFaq(3)">
         <span>¿Puedo devolver un producto?</span>
-        <span class="icon">+</span>
+        <span class="icon">{{ expandedFaq() === 3 ? '-' : '+' }}</span>
       </div>
-      <div class="faq-answer">
-        <p>Sí, tienes 30 días para devolver productos en su condición original. Contáctanos para iniciar el proceso.</p>
-      </div>
+      @if (expandedFaq() === 3) {
+        <div class="faq-answer">
+          <p>Sí, tienes 30 días para devolver productos en su condición original. Contáctanos para iniciar el proceso.</p>
+        </div>
+      }
     </div>
   </div>
 

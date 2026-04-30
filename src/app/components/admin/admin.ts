@@ -18,6 +18,7 @@ export class Admin implements OnInit {
 
   productos = signal<Product[]>([]);
   ventas = signal<Venta[]>([]);
+  usuarios = signal<User[]>([]);
   loading = signal(true);
   activeTab = signal<'products' | 'ventas' | 'usuarios'>('products');
 
@@ -52,6 +53,10 @@ export class Admin implements OnInit {
     if (this.auth.currentUser()?.role === 'ADMIN') {
       this.api.getVentas().subscribe({
         next: (res) => this.ventas.set(res.ventas),
+        error: () => {}
+      });
+      this.api.getUsers().subscribe({
+        next: (res) => this.usuarios.set(res.users),
         error: () => {}
       });
     }
@@ -144,5 +149,9 @@ export class Admin implements OnInit {
         return fecha.getMonth() === now.getMonth() && fecha.getFullYear() === now.getFullYear();
       })
       .reduce((sum, v) => sum + v.total, 0);
+  }
+
+  getUsuariosByRole(role: string): number {
+    return this.usuarios().filter(u => u.role === role).length;
   }
 }

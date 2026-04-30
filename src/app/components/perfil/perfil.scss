@@ -13,21 +13,53 @@
   align-items: center;
   gap: 25px;
   margin-bottom: 30px;
+  flex-wrap: wrap;
 
-  .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: #FF9900;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: rgb(255, 255, 255);
+  .avatar-section {
+    position: relative;
+    
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #FF9900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: rgb(255, 255, 255);
+    }
+
+    .avatar-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .upload-btn {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #FF9900;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #e68a00;
+      }
+    }
   }
 
   .header-info {
+    flex: 1;
+
     h1 {
       font-size: 1.8rem;
       margin-bottom: 5px;
@@ -48,8 +80,194 @@
       font-weight: 600;
       margin-top: 10px;
     }
+
+    .edit-name-input {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 1.8rem;
+      color: white;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+        border-color: #FF9900;
+      }
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 10px;
+
+    button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-edit {
+      background: #FF9900;
+      color: white;
+
+      &:hover {
+        background: #e68a00;
+      }
+    }
+
+    .btn-save {
+      background: #22c55e;
+      color: white;
+
+      &:hover {
+        background: #16a34a;
+      }
+    }
+
+    .btn-cancel {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
   }
 }
+
+.perfil-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.perfil-card {
+  background: rgb(255, 255, 255);
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 25px;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: #FF9900;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    color: #232f3e;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f5;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    label {
+      color: #666;
+      font-weight: 500;
+    }
+
+    span {
+      color: #232f3e;
+      font-weight: 600;
+    }
+  }
+}
+
+.btn-danger {
+  background: #ff4444;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 30px;
+  width: 100%;
+
+  &:hover {
+    background: #cc0000;
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .perfil-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+
+    .header-info {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .edit-name-input {
+        text-align: center;
+      }
+    }
+
+    .header-actions {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .perfil-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .perfil-container {
+    padding: 10px;
+  }
+
+  .perfil-header {
+    padding: 20px 15px;
+
+    .avatar-section {
+      .avatar, .avatar-img {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+      }
+    }
+
+    .header-info h1 {
+      font-size: 1.3rem;
+    }
+
+    .header-actions {
+      flex-direction: column;
+      
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
 
 .perfil-grid {
   display: grid;

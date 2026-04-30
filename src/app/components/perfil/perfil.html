@@ -1,83 +1,81 @@
 <div class="perfil-container">
   @if (usuario()) {
-  <div class="perfil-header">
-    <div class="avatar">
-      {{ usuario()?.name?.charAt(0)?.toUpperCase() || 'U' }}
+    <div class="perfil-header">
+      <div class="avatar-section">
+        @if (isEditing() && previewUrl()) {
+          <img [src]="previewUrl()" class="avatar-img">
+        } @else if (usuario()?.picture_url) {
+          <img [src]="usuario()?.picture_url" class="avatar-img">
+        } @else {
+          <div class="avatar">{{ usuario()?.name?.charAt(0)?.toUpperCase() || 'U' }}</div>
+        }
+        
+        @if (isEditing()) {
+          <label class="upload-btn">
+            📷 Cambiar foto
+            <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden>
+          </label>
+        }
+      </div>
+      
+      <div class="header-info">
+        @if (isEditing()) {
+          <input type="text" [(ngModel)]="editName" class="edit-name-input">
+        } @else {
+          <h1>{{ usuario()?.name || 'Usuario' }}</h1>
+        }
+        <p>{{ usuario()?.email || '' }}</p>
+        <span class="role-badge" [class]="'role-' + (usuario()?.role?.toLowerCase() || 'cliente')">{{ usuario()?.role || 'CLIENTE' }}</span>
+      </div>
+      
+      <div class="header-actions">
+        @if (isEditing()) {
+          <button class="btn-save" (click)="saveProfile()">Guardar</button>
+          <button class="btn-cancel" (click)="cancelEdit()">Cancelar</button>
+        } @else {
+          <button class="btn-edit" (click)="startEdit()">✏️ Editar</button>
+        }
+      </div>
     </div>
-    <div class="header-info">
-      <h1>{{ usuario()?.name || 'Usuario' }}</h1>
-      <p>{{ usuario()?.email || '' }}</p>
-      <span class="role-badge" [class]="'role-' + (usuario()?.role?.toLowerCase() || 'cliente')">{{ usuario()?.role || 'CLIENTE' }}</span>
-    </div>
-  </div>
   } @else {
-  <div class="loading">Cargando perfil...</div>
+    <div class="loading">Cargando perfil...</div>
   }
 
-  <div class="perfil-grid">
-    <div class="perfil-card">
-      <h3>📋 Información de Cuenta</h3>
-      <div class="info-row">
-        <label>Nombre</label>
-        <span>{{ usuario()?.name || 'No registrado' }}</span>
+  @if (usuario()) {
+    <div class="perfil-grid">
+      <div class="perfil-card">
+        <h3>📋 Información de Cuenta</h3>
+        <div class="info-row">
+          <label>Nombre</label>
+          <span>{{ usuario()?.name || 'No registrado' }}</span>
+        </div>
+        <div class="info-row">
+          <label>Email</label>
+          <span>{{ usuario()?.email || 'No registrado' }}</span>
+        </div>
+        <div class="info-row">
+          <label>Rol</label>
+          <span [class]="'role-' + (usuario()?.role?.toLowerCase() || 'cliente')">{{ usuario()?.role || 'CLIENTE' }}</span>
+        </div>
       </div>
-      <div class="info-row">
-        <label>Email</label>
-        <span>{{ usuario()?.email || 'No registrado' }}</span>
-      </div>
-      <div class="info-row">
-        <label>Rol</label>
-        <span [class]="'role-' + (usuario()?.role?.toLowerCase() || 'cliente')">{{ usuario()?.role || 'CLIENTE' }}</span>
+
+      <div class="perfil-card">
+        <h3>📦 Mis Pedidos</h3>
+        <div class="info-row">
+          <label>Total pedidos</label>
+          <span>0</span>
+        </div>
+        <div class="info-row">
+          <label>En proceso</label>
+          <span>0</span>
+        </div>
+        <div class="info-row">
+          <label>Entregados</label>
+          <span>0</span>
+        </div>
       </div>
     </div>
 
-    <div class="perfil-card">
-      <h3>📦 Mis Pedidos</h3>
-      <div class="info-row">
-        <label>Total pedidos</label>
-        <span>0</span>
-      </div>
-      <div class="info-row">
-        <label>En proceso</label>
-        <span>0</span>
-      </div>
-      <div class="info-row">
-        <label>Entregados</label>
-        <span>0</span>
-      </div>
-    </div>
-
-    <div class="perfil-card">
-      <h3>📍 Dirección de Envío</h3>
-      <div class="info-row">
-        <label>Principal</label>
-        <span>No configurada</span>
-      </div>
-      <div class="info-row">
-        <label>Secundaria</label>
-        <span>No configurada</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="quick-actions">
-    <button class="action-btn">
-      <span class="icon">🛒</span>
-      <span>Mis Compras</span>
-    </button>
-    <button class="action-btn">
-      <span class="icon">❤️</span>
-      <span>Lista de Deseos</span>
-    </button>
-    <button class="action-btn">
-      <span class="icon">🔔</span>
-      <span>Notificaciones</span>
-    </button>
-    <button class="action-btn">
-      <span class="icon">⚙️</span>
-      <span>Configuración</span>
-    </button>
-  </div>
-
-  <button class="btn-danger" (click)="logout()">Cerrar Sesión</button>
+    <button class="btn-danger" (click)="logout()">Cerrar Sesión</button>
+  }
 </div>

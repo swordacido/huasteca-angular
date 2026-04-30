@@ -200,60 +200,86 @@
   }
 }
 
-.ventas-table {
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  .ventas-table,
+  .usuarios-table {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
 
-    th {
-      background: #f7f7f7;
-      padding: 15px;
-      text-align: left;
+      th {
+        background: #f7f7f7;
+        padding: 15px;
+        text-align: left;
+        font-weight: 700;
+        color: #666;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+      }
+
+      td {
+        padding: 15px;
+        border-bottom: 1px solid #f0f0f0;
+        color: #232f3e;
+      }
+
+      tr:hover td {
+        background: #fafafa;
+      }
+    }
+
+    .total {
       font-weight: 700;
-      color: #666;
-      font-size: 0.85rem;
-      text-transform: uppercase;
+      color: #B12704;
     }
 
-    td {
-      padding: 15px;
-      border-bottom: 1px solid #f0f0f0;
-      color: #232f3e;
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+
+      &.pending {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      &.completed {
+        background: #dcfce7;
+        color: #166534;
+      }
     }
 
-    tr:hover td {
-      background: #fafafa;
+    .role-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+
+      &.role-admin {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      &.role-vendedor {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      &.role-cliente {
+        background: #dcfce7;
+        color: #166534;
+      }
     }
   }
-
-  .total {
-    font-weight: 700;
-    color: #B12704;
-  }
-
-  .badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 700;
-
-    &.pending {
-      background: #fef3c7;
-      color: #92400e;
-    }
-
-    &.completed {
-      background: #dcfce7;
-      color: #166534;
-    }
-  }
-}
 
 .empty-state {
   text-align: center;
@@ -398,42 +424,42 @@
 }
 
 // Form actions
-.form-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 25px;
+  .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
 
-  button {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-cancel {
-    background: #f0f0f0;
-    color: #666;
-
-    &:hover {
-      background: #e0e0e0;
-    }
-  }
-
-  .btn-save {
-    background: #FF9900;
-    color: white;
-
-    &:hover:not(:disabled) {
-      background: #e68a00;
+    button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
     }
 
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+    .btn-cancel {
+      background: #f0f0f0;
+      color: #666;
+
+      &:hover {
+        background: #e0e0e0;
+      }
     }
-  }
+
+    .btn-save {
+      background: #FF9900;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background: #e68a00;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
 }

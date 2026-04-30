@@ -50,4 +50,12 @@ export class ApiService {
   getVentas(): Observable<{ ventas: Venta[] }> {
     return this.http.get<{ ventas: Venta[] }>(`${this.API_URL}/admin/ventas`);
   }
+
+  getUsers(): Observable<{ users: User[] }> {
+    return this.http.get<{ users: User[] }>(`${this.API_URL}/admin/users`);
+  }
+
+  updateProfile(data: { name: string; picture_url: string }): Observable<{ user: User }> {
+    return this.http.put<{ user: User }>(`${this.API_URL}/me`, data);
+  }
 }

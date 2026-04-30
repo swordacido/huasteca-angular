@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, CanActivateFn } from '@angular/router';
 import { Productos } from './components/productos/productos';
 import { Auth } from './components/auth/auth';
 import { Perfil } from './components/perfil/perfil';
@@ -6,6 +6,7 @@ import { Ayuda } from './components/ayuda/ayuda';
 import { Venta } from './components/venta/venta';
 import { Admin } from './components/admin/admin';
 import { Carrito } from './components/carrito/carrito';
+import { roleGuard } from './guards/role.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -15,6 +16,6 @@ export const routes: Routes = [
   { path: 'perfil', component: Perfil },
   { path: 'ayuda', component: Ayuda },
   { path: 'venta', component: Venta },
-  { path: 'admin', component: Admin },
+  { path: 'admin', component: Admin, canActivate: [roleGuard], data: { roles: ['ADMIN'] } },
   { path: 'carrito', component: Carrito },
 ];

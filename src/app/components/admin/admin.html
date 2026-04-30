@@ -151,21 +151,43 @@
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">Total Usuarios</div>
-        <div class="stat-value">-</div>
+        <div class="stat-value">{{ usuarios().length }}</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label"> Administradores</div>
-        <div class="stat-value">-</div>
+        <div class="stat-label">Administradores</div>
+        <div class="stat-value">{{ getUsuariosByRole('ADMIN') }}</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label"> Vendedores</div>
-        <div class="stat-value">-</div>
+        <div class="stat-label">Vendedores</div>
+        <div class="stat-value">{{ getUsuariosByRole('VENDEDOR') }}</div>
       </div>
     </div>
 
-    <div class="empty-state">
-      <h3>Gestión de Usuarios</h3>
-      <p>Aquí podrás gestionar usuarios y roles</p>
+    <div class="usuarios-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Nombre</th>
+            <th>Rol</th>
+            <th>Registro</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (usuario of usuarios(); track usuario.id) {
+            <tr>
+              <td>{{ usuario.email }}</td>
+              <td>{{ usuario.name }}</td>
+              <td><span class="role-badge" [class]="'role-' + usuario.role.toLowerCase()">{{ usuario.role }}</span></td>
+              <td>{{ usuario.created_at ? (usuario.created_at | date:'short') : 'N/A' }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" style="text-align: center; padding: 40px;">No hay usuarios registrados</td>
+            </tr>
+          }
+        </tbody>
+      </table>
     </div>
   }
 </div>

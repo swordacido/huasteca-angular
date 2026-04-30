@@ -10,6 +10,7 @@ export interface User {
   name: string;
   picture_url?: string;
   role: 'ADMIN' | 'VENDEDOR' | 'CLIENTE';
+  created_at?: string;
 }
 
 @Injectable({
