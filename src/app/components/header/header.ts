@@ -26,3 +26,15 @@ export class Header {
     this.state.navigateTo(section);
   }
 }
+
+import { Component } from '@angular/core';
+import logoUrl from './logo_side.png'; // <-- Ruta relativa al .ts
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  // ...
+})
+export class HeaderComponent {
+  logo = logoUrl;
+}
